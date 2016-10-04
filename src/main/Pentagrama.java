@@ -15,11 +15,12 @@ public class Pentagrama extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 316233707961019770L;
+	private CompositorMusical cm;
 
 	public Pentagrama() {
 		super();
-		this.setSize(300, 100);
-		this.setBounds(0, 0, 300, 100);
+		this.setSize(900, 126);
+		this.setBounds(0, 61, 900, 126);
 		this.setBackground(Color.WHITE);
 	}
 	
@@ -51,5 +52,9 @@ public class Pentagrama extends JPanel {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public void clean() {
+		this.repaint();
 	}
 }
