@@ -30,14 +30,26 @@ public class Controller {
 		}
 		if (count==13)
 			return null;
-		return notas[count];
+		
+		String nota = notas[count];
+		
+		if(count < 3)
+		  nota+="6";
+		else
+			if(count < 10)
+				nota+="5";
+			else
+		     nota+="6";
+		
+		return nota;
+		
 	}
 	
 	public void puntoSeleccionado(Point p, Pentagrama pentagrama, JTextField inputText) {
 		this.setPuntoSeleccionado(p);
 		String nota = convertPointToNote();
 		if (nota !=null){
-			nota += "5"+tiempoNota.getTempo();
+			nota += tiempoNota.getTempo();
 			pentagrama.paintNote(this.getTiempoNota(),this.getPuntoSeleccionado());
 			inputText.setText((inputText.getText().length()==0)?nota:inputText.getText() +" " + nota);
 		}
