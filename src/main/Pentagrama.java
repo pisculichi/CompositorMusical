@@ -15,7 +15,6 @@ public class Pentagrama extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 316233707961019770L;
-	private CompositorMusical cm;
 
 	public Pentagrama() {
 		super();

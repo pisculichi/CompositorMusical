@@ -37,7 +37,7 @@ public class Controller {
 		this.setPuntoSeleccionado(p);
 		String nota = convertPointToNote();
 		if (nota !=null){
-			nota += tiempoNota.getTempo();
+			nota += "5"+tiempoNota.getTempo();
 			pentagrama.paintNote(this.getTiempoNota(),this.getPuntoSeleccionado());
 			inputText.setText((inputText.getText().length()==0)?nota:inputText.getText() +" " + nota);
 		}

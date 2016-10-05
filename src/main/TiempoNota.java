@@ -7,8 +7,6 @@ import javax.imageio.ImageIO;
 
 public enum TiempoNota {
 	
-	// w, h, q i, s, t, x, o
-	
 	REDONDA("redonda","w"),
 	BLANCA("blanca","h"),
 	NEGRA("negra","q"),
