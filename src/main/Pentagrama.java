@@ -3,8 +3,8 @@ package main;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
-import java.awt.Point;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
@@ -15,7 +15,6 @@ public class Pentagrama extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 316233707961019770L;
-	private CompositorMusical cm;
 
 	public Pentagrama() {
 		super();
@@ -43,18 +42,21 @@ public class Pentagrama extends JPanel {
 		g.drawLine(0, 105, width, 105);
 	}
 	
-	public void paintNote(TiempoNota t, Point p) {
-		Graphics g =this.getGraphics();
-	    Image tiempo;
-		try {
-			tiempo = ImageIO.read(this.getClass().getResource("/resources/"+t.getImagenNombre()));
-			g.drawImage(tiempo, (int) p.getX(),(int) p.getY()-25, null);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+	public void dibujarNotaPentagrama(NotaPentagrama notaPentagrama) {
+		//Graphics g =this.getGraphics();
+		super.getGraphics().drawImage(notaPentagrama.getTiempoNota().getImagen(), 
+				(int) notaPentagrama.getCoordenadaPentagrama().getX(),
+				(int) notaPentagrama.getCoordenadaPentagrama().getY()-25, 
+				null);
 	}
 	
 	public void clean() {
 		this.repaint();
+	}
+
+	public void redibujar(ArrayList<NotaPentagrama> notasPentagrama) {
+		for (NotaPentagrama notaPentagrama: notasPentagrama){
+			this.dibujarNotaPentagrama(notaPentagrama);
+		}
 	}
 }

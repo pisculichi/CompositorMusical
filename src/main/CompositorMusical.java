@@ -19,6 +19,7 @@ public class CompositorMusical {
 		Pentagrama pentagrama = new Pentagrama();
 		
 		frame.setSize(900, 300);
+		frame.setResizable(false);
 
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		JPanel panelSuperior = new JPanel();
@@ -47,6 +48,7 @@ public class CompositorMusical {
 			public void actionPerformed(ActionEvent e) {
 				pentagrama.clean();
 				inputText.setText("");
+				controller.borrarNotasPentagrama();
 			}
 		});
 		panelInferior.setSize(900, 50);

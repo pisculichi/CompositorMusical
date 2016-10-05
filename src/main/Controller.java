@@ -1,6 +1,8 @@
 package main;
 
 import java.awt.Point;
+import java.util.ArrayList;
+import java.util.Collections;
 
 import javax.swing.JTextField;
 
@@ -8,39 +10,24 @@ import javax.swing.JTextField;
 public class Controller {
 
 	private TiempoNota tiempoNota;
-	private Point puntoSeleccionado;
-	private String[] notas = {"A","G","F","E","D","C","B","A","G","F","E","D","C"};
-	
+	private ArrayList<NotaPentagrama> notasPentagrama;
+
 	public Controller() {
 		this.setTiempoNota(TiempoNota.REDONDA);
+		this.setNotasPentagrama(new ArrayList<NotaPentagrama>());
 	}
 
-	private String convertPointToNote() {
-		int y = (int) puntoSeleccionado.getY();
-		int tono=0;
-		int count=0;
-		while (tono<127){
-			if ((tono<=y && y-tono<=7))
-				break;
-			if (tono!=0 && count%2==0)
-				tono+=14;
-			else
-				tono+=7;
-			count++;
-		}
-		if (count==13)
-			return null;
-		return notas[count];
-	}
-	
 	public void puntoSeleccionado(Point p, Pentagrama pentagrama, JTextField inputText) {
-		this.setPuntoSeleccionado(p);
-		String nota = convertPointToNote();
-		if (nota !=null){
-			nota += tiempoNota.getTempo();
-			pentagrama.paintNote(this.getTiempoNota(),this.getPuntoSeleccionado());
-			inputText.setText((inputText.getText().length()==0)?nota:inputText.getText() +" " + nota);
-		}
+		try{
+			NotaPentagrama notaPentagrama = new NotaPentagrama(p, tiempoNota);
+			this.getNotasPentagrama().add(notaPentagrama);
+			Collections.sort(this.getNotasPentagrama());
+			pentagrama.redibujar(this.getNotasPentagrama());
+			inputText.setText(this.cifradoJflugue());
+		}catch (Exception e){
+			// Nada que hacer
+			System.out.println(e.getMessage());
+		}	
 	}
 	
 	public void duracionSeleccionada(TiempoNota t) {
@@ -55,11 +42,23 @@ public class Controller {
 		this.tiempoNota = t;
 	}
 
-	public Point getPuntoSeleccionado() {
-		return puntoSeleccionado;
+	public ArrayList<NotaPentagrama> getNotasPentagrama() {
+		return notasPentagrama;
 	}
 
-	public void setPuntoSeleccionado(Point puntoSeleccionado) {
-		this.puntoSeleccionado = puntoSeleccionado;
+	public void setNotasPentagrama(ArrayList<NotaPentagrama> notasPentagrama) {
+		this.notasPentagrama = notasPentagrama;
+	}
+	
+	private String cifradoJflugue(){
+		String texto ="";
+		for (NotaPentagrama n: this.getNotasPentagrama()) {
+			texto+=" "+n;
+		}
+		return texto;
+	}
+
+	public void borrarNotasPentagrama() {
+		this.setNotasPentagrama(new ArrayList<NotaPentagrama>());	
 	}
 }
